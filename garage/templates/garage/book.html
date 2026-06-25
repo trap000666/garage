@@ -1,0 +1,83 @@
+<!-- garage/templates/garage/book.html -->
+{% extends 'garage/base.html' %}
+{% block title %}Book a Service{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card p-4">
+      <h3 class="mb-4"><i class="bi bi-calendar-plus text-warning"></i> Book a Service</h3>
+      <form method="post">
+        {% csrf_token %}
+
+        <h6 class="text-muted mt-2">Customer Information</h6>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Full Name</label>
+            {{ form.customer_name }}
+            {% if form.customer_name.errors %}<div class="text-danger small">{{ form.customer_name.errors }}</div>{% endif %}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Phone Number</label>
+            {{ form.customer_phone }}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email Address</label>
+          {{ form.customer_email }}
+        </div>
+
+        <hr>
+        <h6 class="text-muted">Vehicle Details</h6>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Make (e.g. Toyota)</label>
+            {{ form.vehicle_make }}
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Model (e.g. Corolla)</label>
+            {{ form.vehicle_model }}
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Year</label>
+            {{ form.vehicle_year }}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Number Plate</label>
+          {{ form.number_plate }}
+        </div>
+
+        <hr>
+        <h6 class="text-muted">Service Details</h6>
+        <div class="mb-3">
+          <label class="form-label">Service Type</label>
+          {{ form.service_type }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Problem Description (optional)</label>
+          {{ form.description }}
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Preferred Date</label>
+            {{ form.preferred_date }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Preferred Time</label>
+            {{ form.preferred_time }}
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning w-100 fw-bold mt-2">
+          <i class="bi bi-check-circle"></i> Confirm Booking
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  input, select, textarea { display: block; width: 100%; padding: .375rem .75rem;
+    border: 1px solid #ced4da; border-radius: .375rem; font-size: 1rem; }
+</style>
+{% endblock %}

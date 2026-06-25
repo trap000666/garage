@@ -1,0 +1,15 @@
+<!-- garage/templates/garage/confirm_delete.html -->
+{% extends 'garage/base.html' %}
+{% block title %}Delete Booking{% endblock %}
+{% block content %}
+<div class="text-center py-5">
+  <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size:3rem;"></i>
+  <h4 class="mt-3">Delete this booking?</h4>
+  <p>{{ booking.customer_name }} — {{ booking.vehicle_make }} {{ booking.vehicle_model }}</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger me-2">Yes, Delete</button>
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

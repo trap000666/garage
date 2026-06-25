@@ -1,0 +1,58 @@
+<!-- garage/templates/garage/job_detail.html -->
+{% extends 'garage/base.html' %}
+{% block title %}Job Detail{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="card p-4 mb-4">
+      <h5><i class="bi bi-car-front text-warning"></i> Job Details</h5>
+      <table class="table table-borderless">
+        <tr><td><strong>Customer</strong></td><td>{{ booking.customer_name }}</td></tr>
+        <tr><td><strong>Phone</strong></td><td>{{ booking.customer_phone }}</td></tr>
+        <tr><td><strong>Email</strong></td><td>{{ booking.customer_email }}</td></tr>
+        <tr><td><strong>Vehicle</strong></td><td>{{ booking.vehicle_make }} {{ booking.vehicle_model }} {{ booking.vehicle_year }}</td></tr>
+        <tr><td><strong>Plate</strong></td><td>{{ booking.number_plate }}</td></tr>
+        <tr><td><strong>Service</strong></td><td>{{ booking.get_service_type_display }}</td></tr>
+        <tr><td><strong>Date</strong></td><td>{{ booking.preferred_date }}</td></tr>
+        <tr><td><strong>Time</strong></td><td>{{ booking.preferred_time }}</td></tr>
+        <tr><td><strong>Description</strong></td><td>{{ booking.description|default:"None" }}</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card p-4">
+      <h5><i class="bi bi-wrench text-warning"></i> Update Job Status</h5>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label">Status</label>
+          {{ form.status }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mechanic Notes</label>
+          {{ form.mechanic_notes }}
+        </div>
+        <button class="btn btn-warning w-100">Save Changes</button>
+      </form>
+      <hr>
+      <form method="post" action="{% url 'delete_booking' booking.pk %}">
+        {% csrf_token %}
+        <button class="btn btn-outline-danger w-100"
+          onclick="return confirm('Delete this booking?')">
+          <i class="bi bi-trash"></i> Delete Booking
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<a href="{% url 'dashboard' %}" class="btn btn-outline-secondary mt-3">
+  <i class="bi bi-arrow-left"></i> Back to Dashboard
+</a>
+
+<style>
+  select, textarea { display: block; width: 100%; padding: .375rem .75rem;
+    border: 1px solid #ced4da; border-radius: .375rem; font-size: 1rem; }
+</style>
+{% endblock %}
